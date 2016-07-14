@@ -15,13 +15,13 @@
 	url = git://ufoai.git.sourceforge.net/gitroot/ufoai/ufoai
 [submodule "project/jni/application/openarena/engine"]
 	path = project/jni/application/openarena/engine
-	url = git@github.com:pelya/openarena-engine.git
+	url = git@github.com:dd00/openarena-engine.git
 [submodule "project/jni/application/scummvm/scummvm"]
 	path = project/jni/application/scummvm/scummvm
 	url = git@github.com:scummvm/scummvm.git
 [submodule "project/jni/application/openarena/vm"]
 	path = project/jni/application/openarena/vm
-	url = git@github.com:pelya/openarena-vm
+	url = git@github.com:dd00/openarena-vm
 [submodule "project/jni/application/teeworlds/src"]
 	path = project/jni/application/teeworlds/src
 	url = git@github.com:pelya/teeworlds.git
