@@ -1,6 +1,7 @@
 #!/bin/sh
 
-ARCH_LIST="arm64-v8a x86 mips armeabi-v7a armeabi"
+# ARCH_LIST="arm64-v8a x86 mips armeabi-v7a armeabi"
+ARCH_LIST="x86 armeabi-v7a armeabi"
 
 mkdir -p build
 

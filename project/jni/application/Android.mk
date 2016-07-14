@@ -106,11 +106,11 @@ $(LOCAL_PATH)/src/libapplication-armeabi-v7a-hard.so: $(SDL_APP_LIB_DEPENDS-arme
 	cd $(LOCAL_PATH_SDL_APPLICATION)/src && $(PARALLEL_LOCK) && \
 	./AndroidBuild.sh armeabi-v7a-hard arm-linux-androideabi && $(PARALLEL_UNLOCK)
 
-obj/local/mips/libapplication.so: $(LOCAL_PATH)/src/libapplication-mips.so
+# obj/local/mips/libapplication.so: $(LOCAL_PATH)/src/libapplication-mips.so
 
-$(LOCAL_PATH)/src/libapplication-mips.so: $(SDL_APP_LIB_DEPENDS-mips) OVERRIDE_CUSTOM_LIB
-	cd $(LOCAL_PATH_SDL_APPLICATION)/src && $(PARALLEL_LOCK) && \
-	./AndroidBuild.sh mips mipsel-linux-android && $(PARALLEL_UNLOCK)
+# $(LOCAL_PATH)/src/libapplication-mips.so: $(SDL_APP_LIB_DEPENDS-mips) OVERRIDE_CUSTOM_LIB
+#	cd $(LOCAL_PATH_SDL_APPLICATION)/src && $(PARALLEL_LOCK) && \
+#	./AndroidBuild.sh mips mipsel-linux-android && $(PARALLEL_UNLOCK)
 
 obj/local/x86/libapplication.so: $(LOCAL_PATH)/src/libapplication-x86.so
 
@@ -118,16 +118,16 @@ $(LOCAL_PATH)/src/libapplication-x86.so: $(SDL_APP_LIB_DEPENDS-x86) OVERRIDE_CUS
 	cd $(LOCAL_PATH_SDL_APPLICATION)/src && $(PARALLEL_LOCK) && \
 	./AndroidBuild.sh x86 i686-linux-android && $(PARALLEL_UNLOCK)
 
-obj/local/arm64-v8a/libapplication.so: $(LOCAL_PATH)/src/libapplication-arm64-v8a.so
+#obj/local/arm64-v8a/libapplication.so: $(LOCAL_PATH)/src/libapplication-arm64-v8a.so
 
-$(LOCAL_PATH)/src/libapplication-arm64-v8a.so: $(SDL_APP_LIB_DEPENDS-arm64-v8a) OVERRIDE_CUSTOM_LIB
-	cd $(LOCAL_PATH_SDL_APPLICATION)/src && $(PARALLEL_LOCK) && \
-	./AndroidBuild.sh arm64-v8a aarch64-linux-android && $(PARALLEL_UNLOCK)
+#$(LOCAL_PATH)/src/libapplication-arm64-v8a.so: $(SDL_APP_LIB_DEPENDS-arm64-v8a) OVERRIDE_CUSTOM_LIB
+#	cd $(LOCAL_PATH_SDL_APPLICATION)/src && $(PARALLEL_LOCK) && \
+#	./AndroidBuild.sh arm64-v8a aarch64-linux-android && $(PARALLEL_UNLOCK)
 
-obj/local/x86_64/libapplication.so: $(LOCAL_PATH)/src/libapplication-x86_64.so
+#obj/local/x86_64/libapplication.so: $(LOCAL_PATH)/src/libapplication-x86_64.so
 
-$(LOCAL_PATH)/src/libapplication-x86_64.so: $(SDL_APP_LIB_DEPENDS-x86_64) OVERRIDE_CUSTOM_LIB
-	cd $(LOCAL_PATH_SDL_APPLICATION)/src && $(PARALLEL_LOCK) && \
-	./AndroidBuild.sh x86_64 x86_64-linux-android && $(PARALLEL_UNLOCK)
+#$(LOCAL_PATH)/src/libapplication-x86_64.so: $(SDL_APP_LIB_DEPENDS-x86_64) OVERRIDE_CUSTOM_LIB
+#	cd $(LOCAL_PATH_SDL_APPLICATION)/src && $(PARALLEL_LOCK) && \
+#	./AndroidBuild.sh x86_64 x86_64-linux-android && $(PARALLEL_UNLOCK)
 
 endif # $(APPLICATION_CUSTOM_BUILD_SCRIPT)
