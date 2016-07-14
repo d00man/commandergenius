@@ -1,20 +1,11 @@
-[submodule "project/jni/boost/src"]
-	path = project/jni/boost/src
-	url = git@github.com:pelya/Boost-for-Android.git
 [submodule "project/jni/application/openarena/engine"]
 	path = project/jni/application/openarena/engine
 	url = git@github.com:dd00/openarena-engine.git
 [submodule "project/jni/application/openarena/vm"]
 	path = project/jni/application/openarena/vm
 	url = git@github.com:dd00/openarena-vm
-[submodule "android-shmem"]
-	path = project/jni/shmem
-	url = git@github.com:pelya/android-shmem.git
 [submodule "project/jni/iconv/src"]
 	path = project/jni/iconv/src
-	url = git@github.com:pelya/libiconv-libicu-android.git
-[submodule "project/jni/icuuc/src"]
-	path = project/jni/icuuc/src
 	url = git@github.com:pelya/libiconv-libicu-android.git
 [submodule "project/jni/openssl/openssl/jni"]
 	path = project/jni/openssl/openssl/jni
