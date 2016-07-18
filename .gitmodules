@@ -1,6 +1,7 @@
 [submodule "project/jni/application/openarena/engine"]
 	path = project/jni/application/openarena/engine
 	url = git@github.com:dd00/openarena-engine.git
+	branch = dd00
 [submodule "project/jni/application/openarena/vm"]
 	path = project/jni/application/openarena/vm
 	url = git@github.com:dd00/openarena-vm
