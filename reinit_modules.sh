@@ -3,15 +3,20 @@
 git config -f .git/config --remove-section submodule.project/jni/application/openarena/vm
 git config -f .git/config --remove-section submodule.project/jni/application/openarena/engine
 
-# git add .gitmodules
+git config -f .gitmodules --remove-section submodule.project/jni/application/openarena/vm
+git config -f .gitmodules --remove-section submodule.project/jni/application/openarena/engine
 
-# git commit -m "[update submodules]: remove submodules"
+git add .
+git commit -m "[update submodules]: remove submodules"
 
-# rm -rf ./project/jni/application/openarena/engine
-# rm -rf ./project/jni/application/openarena/vm
+git rm --cached project/jni/application/openarena/engine
+git rm --cached project/jni/application/openarena/vm
 
-# git submodule add https://github.com/dd00/openarena-vm ./project/jni/application/openarena/vm
-# git submodule add https://github.com/dd00/openarena-vm ./project/jni/application/openarena/engine
+rm -rf ./project/jni/application/openarena/engine
+rm -rf ./project/jni/application/openarena/vm
 
-# git add .gitmodules
-# git commit -m "[update submodules]: add submodules"
+git submodule add https://github.com/dd00/openarena-vm ./project/jni/application/openarena/vm
+git submodule add https://github.com/dd00/openarena-engine ./project/jni/application/openarena/engine
+
+git add .
+git commit -m "[update submodules]: add submodules"
