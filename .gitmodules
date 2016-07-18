@@ -5,6 +5,7 @@
 [submodule "project/jni/application/openarena/vm"]
 	path = project/jni/application/openarena/vm
 	url = git@github.com:dd00/openarena-vm
+	branch = dd00
 [submodule "project/jni/iconv/src"]
 	path = project/jni/iconv/src
 	url = git@github.com:pelya/libiconv-libicu-android.git
