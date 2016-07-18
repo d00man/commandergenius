@@ -12,3 +12,6 @@
 [submodule "project/jni/boringssl/boringssl/jni"]
 	path = project/jni/boringssl/boringssl/jni
 	url = https://android.googlesource.com/platform/external/boringssl
+[submodule "project/jni/application/openarena/vm"]
+	path = project/jni/application/openarena/vm
+	url = https://github.com/dd00/openarena-vm
