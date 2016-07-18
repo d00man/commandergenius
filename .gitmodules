@@ -1,7 +1,3 @@
-[submodule "project/jni/application/openarena/engine"]
-	path = project/jni/application/openarena/engine
-	url = git@github.com:dd00/openarena-engine.git
-	branch = dd00
 [submodule "project/jni/iconv/src"]
 	path = project/jni/iconv/src
 	url = git@github.com:pelya/libiconv-libicu-android.git
@@ -12,6 +8,3 @@
 [submodule "project/jni/boringssl/boringssl/jni"]
 	path = project/jni/boringssl/boringssl/jni
 	url = https://android.googlesource.com/platform/external/boringssl
-[submodule "project/jni/application/openarena/vm"]
-	path = project/jni/application/openarena/vm
-	url = https://github.com/dd00/openarena-vm
