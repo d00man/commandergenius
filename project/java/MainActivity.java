@@ -96,14 +96,38 @@ import java.util.TreeSet;
 import android.app.UiModeManager;
 import android.Manifest;
 
+import android.widget.Toast;
 
 public class MainActivity extends Activity
 {
+	private static final int micPermissionCode = 19283; // any random number to identify request
+	
+	private Handler  micPermissionHandler  = new Handler ( );
+	private Runnable micPermissionRunnable = new Runnable( ) {
+		public void run( ) {
+		  if ( android.os.Build.VERSION.SDK_INT < 23 ) 
+		    return;
+		  // android.permission.RECORD_AUDIO
+		  if ( MainActivity.this.checkSelfPermission( Manifest.permission.RECORD_AUDIO )
+			!= PackageManager.PERMISSION_GRANTED ) 
+		  {
+		    MainActivity.this.requestPermissions( new String[]{ Manifest.permission.RECORD_AUDIO }, micPermissionCode );
+		  }
+		} // run( )
+	      };
+	
+	
+	private void requestMicPermission( ) {
+	  if ( android.os.Build.VERSION.SDK_INT < 23 ) 
+	    return;
+	  micPermissionHandler.postDelayed( micPermissionRunnable, 1000 );
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
+		
 		instance = this;
 		// fullscreen mode
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -512,6 +536,7 @@ public class MainActivity extends Activity
 		Intent i = new Intent("com.nvidia.intent.action.ENABLE_STYLUS");
 		i.putExtra("package", getPackageName());
 		sendBroadcast(i);
+		requestMicPermission( );
 	}
 
 	@Override
@@ -1579,11 +1604,16 @@ public class MainActivity extends Activity
 		if (Manifest.permission.RECORD_AUDIO.equals(permissions[0]))
 		{
 			Log.i("SDL", "libSDL: Record audio permission: " + (grantResults[0] == PackageManager.PERMISSION_GRANTED ? "GRANTED" : "DENIED"));
+			if ( grantResults[0] != PackageManager.PERMISSION_GRANTED ) {
+			  Toast.makeText( getApplicationContext( ), "You must grant microphone access for voice chat!", Toast.LENGTH_LONG ).show( );
+			}
+			return;
 		}
 		if (Manifest.permission.WRITE_EXTERNAL_STORAGE.equals(permissions[0]))
 		{
 			Log.i("SDL", "libSDL: Write external storage permission: " + (grantResults[0] == PackageManager.PERMISSION_GRANTED ? "GRANTED" : "DENIED"));
 			writeExternalStoragePermissionDialogAnswered = true;
+			return;
 		}
 	}
 
