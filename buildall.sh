@@ -19,6 +19,16 @@ fi
 
 which zipalign || { echo "'zipalign' tools is not found in your PATH" && exit 1 ; }
 
+if uname -s | grep -i "darwin" > /dev/null ; then
+  greadlink_path=`which greadlink`
+  if [ -n "$greadlink_path" ]; then
+    echo "Using greadlink from $greadlink_path"
+  else
+    echo "Failed to find 'greadlink' tool. Install 'coreutils' package from macports (https://www.macports.org/) or homebrew (http://brew.sh/), and check that the tool is in your PATH"
+    exit 1
+  fi
+fi
+
 git submodule update --init project/jni/application/openarena/engine
 git submodule update --init project/jni/application/openarena/vm
 
