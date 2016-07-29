@@ -22,7 +22,7 @@ which zipalign || { echo "'zipalign' tools is not found in your PATH" && exit 1 
 git submodule update --init project/jni/application/openarena/engine
 git submodule update --init project/jni/application/openarena/vm
 
-rm project/jni/application/src # ignore the error
+rm project/jni/application/src || true # ignore the error
 ln -s openarena project/jni/application/src
 
 ./changeAppSettings.sh -a
