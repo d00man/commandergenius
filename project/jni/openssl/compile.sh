@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 # ARCH_LIST="arm64-v8a x86 mips armeabi-v7a armeabi"
 ARCH_LIST="x86 armeabi-v7a armeabi"
 
@@ -39,7 +41,8 @@ build() {
 
 PIDS=""
 for ARCH in $ARCH_LIST; do
-	build $ARCH &
+#build $ARCH &
+	build $ARCH
 	PIDS="$PIDS $!"
 done
 
@@ -48,4 +51,4 @@ for PID in $PIDS; do
 done
 
 rm -rf include
-cp -r -L build/armeabi-v7a/include ./ || exit 1
+cp -R -L build/armeabi-v7a/include ./ || exit 1

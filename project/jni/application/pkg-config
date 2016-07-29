@@ -14,9 +14,9 @@ fi
 PKG=$(
 for ARG in "$@"; do
     case "$ARG" in
-      -*)
+      (-*)
         ;;
-      *)
+      (*)
         [ -z "$PKG" ] || { echo "Please specify only one package" > /dev/stderr ; exit 1 ; }
         echo "$ARG"
         ;;

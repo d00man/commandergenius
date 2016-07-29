@@ -611,8 +611,14 @@ function build()
             sleep 1
             touch $T/project/src/Globals.java
     fi
+
+    SEDI="sed -i"
+    if uname -s | grep -i "darwin" > /dev/null ; then 
+      SEDI="sed -i.killme.tmp" # MacOsX version of sed is buggy, and requires a mandatory parameter
+    fi
+
     if $build_release ; then
-            sed -i 's/android:debuggable="true"/android:debuggable="false"/g' project/AndroidManifest.xml
+            $SEDI 's/android:debuggable="true"/android:debuggable="false"/g' project/AndroidManifest.xml
     fi
 
     MYARCH=linux-x86

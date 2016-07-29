@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -ex
+
 IFS='
 '
 
@@ -9,6 +11,7 @@ if uname -s | grep -i "linux" > /dev/null ; then
 fi
 if uname -s | grep -i "darwin" > /dev/null ; then
 	MYARCH=darwin-x86_64
+  alias readlink=greadlink
 fi
 if uname -s | grep -i "windows" > /dev/null ; then
 	MYARCH=windows-x86_64
@@ -34,14 +37,14 @@ APP_MODULES=`grep 'APP_MODULES [:][=]' $LOCAL_PATH/../Settings.mk | sed 's@.*[=]
 APP_AVAILABLE_STATIC_LIBS=`grep 'APP_AVAILABLE_STATIC_LIBS [:][=]' $LOCAL_PATH/../Settings.mk | sed 's@.*[=]\(.*\)@\1@'`
 APP_SHARED_LIBS=$(
 echo $APP_MODULES | xargs -n 1 echo | while read LIB ; do
-	STATIC=`echo $APP_AVAILABLE_STATIC_LIBS application sdl_main stlport stdout-test | grep "\\\\b$LIB\\\\b"`
+	STATIC=`echo $APP_AVAILABLE_STATIC_LIBS application sdl_main stlport stdout-test | grep "\\\\b$LIB\\\\b"` || true
 	if [ -n "$STATIC" ] ; then true
 	else
 		case $LIB in
-			crypto) echo crypto.so.sdl.1;;
-			ssl) echo ssl.so.sdl.1;;
-			curl) echo curl-sdl;;
-			*) echo $LIB;;
+			(crypto) echo crypto.so.sdl.1;;
+			(ssl) echo ssl.so.sdl.1;;
+			(curl) echo curl-sdl;;
+			(*) echo $LIB;;
 		esac
 	fi
 done
@@ -62,7 +65,7 @@ CFLAGS="\
 -isystem$NDK/sources/cxx-stl/gnu-libstdc++/$NDK_TOOLCHAIN_VERSION/libs/$ARCH/include \
 -isystem$NDK/sources/cxx-stl/gnu-libstdc++/$NDK_TOOLCHAIN_VERSION/include/backward \
 -isystem$LOCAL_PATH/../sdl-1.2/include \
-`echo $APP_MODULES | sed \"s@\([-a-zA-Z0-9_.]\+\)@-isystem$LOCAL_PATH/../\1/include@g\"` \
+`echo $APP_MODULES | sed -E \"s@([-a-zA-Z0-9_.]+)@-isystem$LOCAL_PATH/../\1/include@g\"` \
 $MISSING_INCLUDE $CFLAGS"
 
 if [ -z "$SHARED_LIBRARY_NAME" ]; then
@@ -84,7 +87,7 @@ LDFLAGS="\
 $SHARED \
 --sysroot=$NDK/platforms/$PLATFORMVER/arch-mips \
 -L$LOCAL_PATH/../../obj/local/$ARCH \
-`echo $APP_SHARED_LIBS | sed \"s@\([-a-zA-Z0-9_.]\+\)@$LOCAL_PATH/../../obj/local/$ARCH/lib\1.so@g\"` \
+`echo $APP_SHARED_LIBS | sed -E \"s@([-a-zA-Z0-9_.]+)@$LOCAL_PATH/../../obj/local/$ARCH/lib\1.so@g\"` \
 -L$NDK/platforms/$PLATFORMVER/arch-mips/usr/lib \
 -lc -lm -lGLESv1_CM -ldl -llog -lz \
 -L$NDK/sources/cxx-stl/gnu-libstdc++/$NDK_TOOLCHAIN_VERSION/libs/$ARCH \

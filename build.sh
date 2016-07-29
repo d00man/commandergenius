@@ -1,6 +1,8 @@
 #!/bin/sh
 #set -eu # Bashism, does not work with default shell on Ubuntu 12.04
 
+set -ex
+
 install_apk=false
 run_apk=false
 sign_apk=false
@@ -89,10 +91,16 @@ if ( grep "package $AppFullName;" project/src/Globals.java > /dev/null 2>&1 && \
 	sleep 1
 	touch project/src/Globals.java
 fi
+
+SEDI="sed -i"
+if uname -s | grep -i "darwin" > /dev/null ; then 
+  SEDI="sed -i.killme.tmp" # MacOsX version of sed is buggy, and requires a mandatory parameter
+fi
+
 if $build_release ; then
-	sed -i 's/android:debuggable="true"/android:debuggable="false"/g' project/AndroidManifest.xml
+	$SEDI 's/android:debuggable="true"/android:debuggable="false"/g' project/AndroidManifest.xml
 else
-	sed -i 's/android:debuggable="false"/android:debuggable="true"/g' project/AndroidManifest.xml
+	$SEDI 's/android:debuggable="false"/android:debuggable="true"/g' project/AndroidManifest.xml
 fi
 
 MYARCH=linux-x86_64
