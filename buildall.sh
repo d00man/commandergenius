@@ -1,23 +1,82 @@
 #!/bin/sh
 
-set -ex
+set -ex -o pipefail -o posix
 
-which android || { echo "'android' tool not found in your PATH" && exit 1 ; }
+# --------------------------------------------------------------------------------
 
-zipalign_path=`which zipalign`
+date
 
-if [ -n "$zipalign_path" ]; then
-  echo "Using zipalign from $zipalign_path"
-else
-  build_tools_index=`android list sdk --all --extended | grep "build-tools-23\.0\.3" | sed -E 's@id: ([0-9]+) or.+@\1@'`
-  if [ -n "$build_tools_index" ]; then
-    echo y | android update sdk --no-ui --filter "$build_tools_index"
-  else
-    echo "Failed to find the package index for build tools."
-  fi
+declare -a vars=(PATH ANDROID_HOME NDK_HOME)
+
+for var in "${vars[@]}"
+do
+  echo "\$${var}=${!var}"
+done
+
+if ! test -d "$NDK_HOME"
+then
+  echo "\$NDK_HOME ($NDK_HOME) is not a valid directory"
 fi
 
-which zipalign || { echo "'zipalign' tools is not found in your PATH" && exit 1 ; }
+PATH=$NDK_HOME:$PATH
+
+if ! test -d "$ANDROID_HOME" || \
+  ! test -d "$ANDROID_HOME/tools"
+then
+  echo "\$ANDROID_HOME ($ANDROID_HOME) is not a valid directory"
+fi
+
+PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH
+
+# --------------------------------------------------------------------------------
+# Install required android components
+
+add_package() {
+  local package_name=$1
+  if test -z "$packages_to_install"
+  then
+    packages_to_install=$package_name
+  else
+    packages_to_install=$packages_to_install,$package_name
+  fi  
+}
+
+build_tools_version=23.0.3
+min_api_level=9
+max_api_level=23
+
+if ! test -d "$ANDROID_HOME/platform-tools"
+then
+    add_package "platform-tools"
+fi
+
+if ! test -d "$ANDROID_HOME/build-tools/$build_tools_version"
+then
+  add_package "build-tools-$build_tools_version"
+fi
+
+# For zipalign
+PATH=$ANDROID_HOME/build-tools/$build_tools_version:$PATH
+
+if ! test -d "$ANDROID_HOME/platforms/android-$min_api_level"
+then
+  add_package "android-$min_api_level"
+fi
+
+if ! test -d "$ANDROID_HOME/platforms/android-$max_api_level"
+then
+  add_package "android-$max_api_level"
+fi
+
+if test -n "$packages_to_install"
+then
+  echo y | android --silent update sdk --no-ui --all --filter "$packages_to_install"
+fi
+
+which android || { echo "'android' tool not found in your PATH" && exit 1 ; }
+which zipalign || { echo "'zipalign' tool is not found in your PATH" && exit 1 ; }
+which ant || { echo "'ant' is not found in your PATH" && exit 1 ; }
+which git || { echo "'git' is not found in your PATH" && exit 1 ; }
 
 if uname -s | grep -i "darwin" > /dev/null ; then
   greadlink_path=`which greadlink`
@@ -29,9 +88,11 @@ if uname -s | grep -i "darwin" > /dev/null ; then
   fi
 fi
 
+# submodules
 git submodule update --init project/jni/application/openarena/engine
 git submodule update --init project/jni/application/openarena/vm
 
+# build
 rm project/jni/application/src || true # ignore the error
 ln -s openarena project/jni/application/src
 
