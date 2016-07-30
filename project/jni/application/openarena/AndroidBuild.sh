@@ -7,15 +7,15 @@ LOCAL_PATH=`cd $LOCAL_PATH && pwd`
 
 if uname -s | grep -i "darwin" > /dev/null ; then
   alias readlink=greadlink
+  build_suffix='darwin-i386'
+else
+  build_suffix=`uname -m`
 fi
 
 if [ "$1" = "armeabi-v7a" ]; then (
 	mkdir -p AndroidData
-	../setEnvironment-$1.sh make -j8 -C vm BUILD_MISSIONPACK=0 \
-    PLATFORM=android ARCH=$1 USE_GLES=1 USE_LOCAL_HEADERS=0 BUILD_CLIENT_SMP=0 \
-    USE_OPENAL=1 USE_OPENAL_DLOPEN=0 USE_VOIP=1 USE_CURL=1 USE_CURL_DLOPEN=0 USE_CODEC_VORBIS=1 USE_MUMBLE=0 USE_FREETYPE=1 \
-    USE_RENDERER_DLOPEN=0 USE_INTERNAL_ZLIB=0 USE_INTERNAL_JPEG=1 BUILD_RENDERER_REND2=0 C_ONLY=1 || exit 1
-	cd vm/build/release-android-$1/baseq3
+  make -j8 -C vm BUILD_MISSIONPACK=0 V=1 || exit 1
+	cd vm/build/release-$build_suffix/baseq3
 	#rm -f ../../../../AndroidData/binaries.zip ../../../../AndroidData/pak7-android.pk3
 	zip -r ../../../../AndroidData/pak7-android.pk3 vm
 	cd ../../../android

@@ -10,7 +10,7 @@
 	url = https://android.googlesource.com/platform/external/boringssl
 [submodule "project/jni/application/openarena/vm"]
 	path = project/jni/application/openarena/vm
-	url = https://github.com/dd00/openarena-vm
+	url = https://github.com/d00man/openarena-vm
 [submodule "project/jni/application/openarena/engine"]
 	path = project/jni/application/openarena/engine
-	url = https://github.com/dd00/openarena-engine
+	url = https://github.com/d00man/openarena-engine

@@ -41,8 +41,8 @@ build() {
 
 PIDS=""
 for ARCH in $ARCH_LIST; do
-#build $ARCH &
-	build $ARCH
+  build $ARCH &
+#	build $ARCH
 	PIDS="$PIDS $!"
 done
 

@@ -15,8 +15,8 @@ git rm --cached project/jni/application/openarena/vm
 rm -rf ./project/jni/application/openarena/engine
 rm -rf ./project/jni/application/openarena/vm
 
-git submodule add https://github.com/dd00/openarena-vm ./project/jni/application/openarena/vm
-git submodule add https://github.com/dd00/openarena-engine ./project/jni/application/openarena/engine
+git submodule add https://github.com/d00man/openarena-vm ./project/jni/application/openarena/vm
+git submodule add https://github.com/d00man/openarena-engine ./project/jni/application/openarena/engine
 
 git add .
 git commit -m "[update submodules]: add submodules"
