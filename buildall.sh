@@ -77,6 +77,8 @@ which android || { echo "'android' tool not found in your PATH" && exit 1 ; }
 which zipalign || { echo "'zipalign' tool is not found in your PATH" && exit 1 ; }
 which ant || { echo "'ant' is not found in your PATH" && exit 1 ; }
 which git || { echo "'git' is not found in your PATH" && exit 1 ; }
+which keytool || { echo "'keytool' is not found in your PATH" && exit 1 ; }
+which jarsigner || { echo "'jarsigner' is not found in your PATH" && exit 1 ; }
 
 if uname -s | grep -i "darwin" > /dev/null ; then
   greadlink_path=`which greadlink`
@@ -86,6 +88,13 @@ if uname -s | grep -i "darwin" > /dev/null ; then
     echo "Failed to find 'greadlink' tool. Install 'coreutils' package from macports (https://www.macports.org/) or homebrew (http://brew.sh/), and check that the tool is in your PATH"
     exit 1
   fi
+fi
+
+# Generate debug.keystore if it doesn't exist
+if ! test -f ~/.android/debug.keystore || \
+   ! keytool -list -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android
+then
+  keytool -genkey -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
 fi
 
 # submodules
