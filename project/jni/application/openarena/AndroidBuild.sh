@@ -9,7 +9,7 @@ if uname -s | grep -i "darwin" > /dev/null ; then
   alias readlink=greadlink
   build_suffix='darwin-i386'
 else
-  build_suffix=`uname -m`
+  build_suffix="linux-`uname -m`"
 fi
 
 if [ "$1" = "armeabi-v7a" ]; then (
