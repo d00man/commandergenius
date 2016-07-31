@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -ex -o pipefail -o posix
 
@@ -27,6 +27,16 @@ then
 fi
 
 PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH
+
+# --------------------------------------------------------------------------------
+# Command line parameters
+
+quick_rebuild=false
+
+if [ "$#" -eq 1 -a "$1" = "-q" ]; then
+  shift
+  quick_rebuild=true
+fi
 
 # --------------------------------------------------------------------------------
 # Install required android components
@@ -97,18 +107,22 @@ then
   keytool -genkey -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
 fi
 
-# submodules
-git submodule update --init project/jni/application/openarena/engine
-git submodule update --init project/jni/application/openarena/vm
+if ! $quick_rebuild ; then
+  # submodules
+  git submodule update --init project/jni/application/openarena/engine
+  git submodule update --init project/jni/application/openarena/vm
 
-# build
-rm project/jni/application/src || true # ignore the error
-ln -s openarena project/jni/application/src
+  # build
+  rm project/jni/application/src || true # ignore the error
+  ln -s openarena project/jni/application/src
 
-./changeAppSettings.sh -a
+  ./changeAppSettings.sh -a
 
-android update project -p project
+  android update project -p project
 
-./build.sh
+  ./build.sh
+else
+  ./build.sh -q
+fi
 
 echo "OpenArena build succeeded"
