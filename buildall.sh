@@ -16,6 +16,7 @@ done
 if ! test -d "$NDK_HOME"
 then
   echo "\$NDK_HOME ($NDK_HOME) is not a valid directory"
+  exit 1
 fi
 
 PATH=$NDK_HOME:$PATH
@@ -24,6 +25,7 @@ if ! test -d "$ANDROID_HOME" || \
   ! test -d "$ANDROID_HOME/tools"
 then
   echo "\$ANDROID_HOME ($ANDROID_HOME) is not a valid directory"
+  exit 1
 fi
 
 PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH
