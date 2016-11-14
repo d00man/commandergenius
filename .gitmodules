@@ -1,6 +1,6 @@
 [submodule "project/jni/iconv/src"]
 	path = project/jni/iconv/src
-	url = git@github.com:pelya/libiconv-libicu-android.git
+	url = https://github.com/pelya/libiconv-libicu-android
 [submodule "project/jni/openssl/openssl/jni"]
 	path = project/jni/openssl/openssl/jni
 	url = https://android.googlesource.com/platform/external/openssl
