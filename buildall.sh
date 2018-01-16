@@ -82,7 +82,7 @@ fi
 
 if test -n "$packages_to_install"
 then
-  echo y | android --silent update sdk --no-ui --all --filter "$packages_to_install"
+  echo y | android update sdk --use-sdk-wrapper --no-ui --all --filter "$packages_to_install"
 fi
 
 which android || { echo "'android' tool not found in your PATH" && exit 1 ; }
