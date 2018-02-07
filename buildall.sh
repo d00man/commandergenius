@@ -28,7 +28,7 @@ then
   exit 1
 fi
 
-PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH
+PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$PATH
 
 # --------------------------------------------------------------------------------
 # Command line parameters
