@@ -13,7 +13,7 @@ This will build libopenal.so and libexample.so under libs subdirectory.
 You can use libopenal.so in your own projects. If you want to build Java example, then
 first update project to your local SDK installation:
 
-$ PATH/TO/SDK/tools/android update project --path . --target android-3
+$ echo "sdk.dir=$ANDROID_HOME" > local.properties
 
 Run this only once (it will create local.properties file, and update default.properties file).
 After that use ant to compile and package Java code:

@@ -7,6 +7,7 @@ then launch commands:
     rm project/jni/application/src # ignore the error
     ln -s openarena project/jni/application/src
     ./changeAppSettings.sh -a
-    android update project -p project
+    # android update project -p project
+    echo "sdk.dir=$ANDROID_HOME" > project/local.properties
     ./build.sh
 That should do it.

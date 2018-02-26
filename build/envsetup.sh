@@ -563,11 +563,13 @@ function build()
 
     echo -n "Which android sdk version/API level do you want to apply?"
     read sdk_version
-    android update project -p $T/project -t android-$sdk_version
+    # android update project -p $T/project -t android-$sdk_version
+    echo "sdk.dir=$ANDROID_HOME" > $T/project/local.properties
     if [ $? -ne 0 ]; then
         echo -n "Applying sdk version $sdk_version failed"
         echo -n "Try to apply the default level 15"
-        android update project -p project -t android-15 -s
+        # android update project -p project -t android-15 -s
+        echo "sdk.dir=$ANDROID_HOME" > project/local.properties
     fi
 
     install_apk=false
@@ -597,7 +599,8 @@ function build()
     fi
 
     [ -e $T/project/local.properties ] || {
-            android update project -p project || exit 1
+            # android update project -p project || exit 1
+            echo "sdk.dir=$ANDROID_HOME" > project/local.properties
             rm -f project/src/Globals.java
     }
 # Set here your own NDK path if needed
