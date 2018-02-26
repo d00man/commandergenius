@@ -48,7 +48,7 @@ LOCAL_SHARED_LIBRARIES := sdl-$(SDL_VERSION) $(filter-out $(APP_AVAILABLE_STATIC
 
 LOCAL_STATIC_LIBRARIES := $(filter $(APP_AVAILABLE_STATIC_LIBS), $(COMPILED_LIBRARIES))
 
-APP_STL := gnustl_static
+APP_STL := gnustl_shared
 
 LOCAL_LDLIBS := -lGLESv1_CM -ldl -llog -lz # -lgnustl_static
 
