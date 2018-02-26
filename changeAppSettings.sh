@@ -962,24 +962,16 @@ else
 		echo 'proguard.config=proguard.cfg;proguard-local.cfg' >> project/local.properties
 		ln -s -f $SDK_DIR/extras/android/compatibility/v4/android-support-v4.jar project/libs
 	}
-	# [ -e $SDK_DIR/extras/google/google_play_services/libproject/google-play-services_lib/build.xml ] || \
-	# 	android update project -t android-23 -p $SDK_DIR/extras/google/google_play_services/libproject/google-play-services_lib
 	[ -e $SDK_DIR/extras/google/google_play_services/libproject/google-play-services_lib/build.xml ] || \
-		echo "sdk.dir=$ANDROID_HOME" > $SDK_DIR/extras/google/google_play_services/libproject/google-play-services_lib/local.properties
-	[ -e $SDK_DIR/extras/android/compatibility/v7/mediarouter/build.xml ] || {
-		# android update project -t android-23 -p $SDK_DIR/extras/android/compatibility/v7/mediarouter
-		echo "sdk.dir=$ANDROID_HOME" > $SDK_DIR/extras/android/compatibility/v7/mediarouter/local.properties
+		android update project -t android-23 -p $SDK_DIR/extras/google/google_play_services/libproject/google-play-services_lib
+	[ -e $SDK_DIR/extras/android/compatibility/v7/mediarouter/build.xml ] || { \
+		android update project -t android-23 -p $SDK_DIR/extras/android/compatibility/v7/mediarouter
 		echo 'android.library.reference.1=../../../../../../../../../../../../../../${sdk.dir}/extras/android/compatibility/v7/appcompat' >> $SDK_DIR/extras/android/compatibility/v7/mediarouter/local.properties
 	}
-	# [ -e $SDK_DIR/extras/android/compatibility/v7/appcompat/build.xml ] || \
-	# 	android update project -t android-23 -p $SDK_DIR/extras/android/compatibility/v7/appcompat
-	# [ -e $SDK_DIR/extras/android/compatibility/v7/palette/build.xml ] || \
-	# 	android update project -t android-23 -p $SDK_DIR/extras/android/compatibility/v7/palette && \
-	# 	mkdir -p $SDK_DIR/extras/android/compatibility/v7/palette/src
 	[ -e $SDK_DIR/extras/android/compatibility/v7/appcompat/build.xml ] || \
-		echo "sdk.dir=$ANDROID_HOME" > $SDK_DIR/extras/android/compatibility/v7/appcompat/local.properties
+		android update project -t android-23 -p $SDK_DIR/extras/android/compatibility/v7/appcompat
 	[ -e $SDK_DIR/extras/android/compatibility/v7/palette/build.xml ] || \
-		echo "sdk.dir=$ANDROID_HOME" > $SDK_DIR/extras/android/compatibility/v7/palette/local.properties && \
+		android update project -t android-23 -p $SDK_DIR/extras/android/compatibility/v7/palette && \
 		mkdir -p $SDK_DIR/extras/android/compatibility/v7/palette/src
 fi
 

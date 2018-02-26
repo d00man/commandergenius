@@ -29,7 +29,7 @@ Launch commands
 	rm project/jni/application/src
 	ln -s ballfield project/jni/application/src
 	./changeAppSettings.sh -a
-	echo "sdk.dir=$ANDROID_HOME" > project/local.properties
+	android update project -p project
 Then edit file build.sh if needed to add NDK dir to your PATH, then launch it.
 It will compile a bunch of libs under project/libs/armeabi,
 create Android package file project/bin/MainActivity-debug.apk,
