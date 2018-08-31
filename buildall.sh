@@ -120,7 +120,9 @@ if ! $quick_rebuild ; then
 
   ./changeAppSettings.sh -a
 
-  android update project -p project
+  # android update project -p project
+  echo "ndk.dir=$NDK_HOME" > project/local.properties
+  echo "sdk.dir=$ANDROID_HOME" >> project/local.properties
 
   ./build.sh
 else

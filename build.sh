@@ -73,7 +73,9 @@ if [ "$#" -gt 0 -a "$1" = "-h" ]; then
 fi
 
 [ -e project/local.properties ] || {
-	android update project -p project || exit 1
+	# android update project -p project || exit 1
+	echo "ndk.dir=$NDK_HOME" > project/local.properties
+	echo "sdk.dir=$ANDROID_HOME" >> project/local.properties
 	rm -f project/src/Globals.java
 }
 
